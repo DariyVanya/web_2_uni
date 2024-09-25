@@ -1,53 +1,42 @@
-// Отримуємо елементи за допомогою різних методів
-const orderBtn = document.getElementById('order-btn');
-const description = document.querySelector('#description');
-const menuItems = document.getElementsByClassName('menu-item');
-const menu = document.getElementsByClassName('menu')
+// Додаємо можливість вибору елементів меню
+const menuItems = document.querySelectorAll('.menu-item');
 
-// Змінна для зберігання активного елементу
-let activeItem = null;
-
-// Додаємо обробник подій для кнопки
-orderBtn.addEventListener('click', () => {
-    alert('Дякуємо за ваше замовлення!');
-    description.textContent = 'Ваше замовлення прийнято!';
-    orderBtn.disabled = true;
-    activeItem.classList.remove('highlight');
-    activeItem = null;
-    menu.classList.add('invisible');
-    
+// Додаємо подію на кожен елемент меню
+menuItems.forEach(item => {
+    item.addEventListener('click', function() {
+        // Якщо елемент вже вибраний, скидаємо вибір
+        if (this.classList.contains('selected')) {
+            this.classList.remove('selected');
+        } else {
+            this.classList.add('selected');
+        }
+    });
 });
 
-// Додаємо обробник подій для кожного елементу меню
-for (let item of menuItems) {
-    item.addEventListener('mouseover', (event) => {
-        if (event.target !== activeItem) {
-            event.target.classList.add('highlight');
+// Обробляємо замовлення
+document.getElementById('order-btn').addEventListener('click', function() {
+    let selectedItems = [];
+
+    // Перевіряємо, які елементи меню вибрані
+    menuItems.forEach(item => {
+        if (item.classList.contains('selected')) {
+            selectedItems.push(item.textContent);
         }
     });
 
-    item.addEventListener('mouseout', (event) => {
-        if (event.target !== activeItem) {
-            event.target.classList.remove('highlight');
-        }
-    });
-
-    // Додаємо обробник події на клік для закріплення підсвітки
-    item.addEventListener('click', (event) => {
-        // Знімаємо підсвітку з попереднього активного пункту
-        if (activeItem) {
-            activeItem.classList.remove('highlight');
-        }
-
-        // Закріплюємо підсвітку на новому активному пункті
-        activeItem = event.target;
-        activeItem.classList.add('highlight');
-    });
-}
-
-// Додаємо обробник події для клавіші Enter
-document.addEventListener('keydown', (event) => {
-    if (event.key === 'Enter') {
-        alert('Ви натиснули клавішу Enter');
+    // Виводимо повідомлення про замовлення
+    if (selectedItems.length > 0) {
+        document.getElementById('order-message').textContent = 'Ви замовили:\n' + selectedItems.join(', ');
+    } else {
+        document.getElementById('order-message').textContent = 'Виберіть хоча б один елемент меню.';
     }
+});
+
+// Додатковий Event Listener для зміни кольору заголовку при наведенні
+const pageTitle = document.getElementById('page-title');
+pageTitle.addEventListener('mouseover', function() {
+    this.style.color = '#d63031';
+});
+pageTitle.addEventListener('mouseout', function() {
+    this.style.color = '#ffffff';
 });
