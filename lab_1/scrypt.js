@@ -1,16 +1,20 @@
 // Додаємо можливість вибору елементів меню
 const menuItems = document.querySelectorAll('.menu-item');
 
+
+function handleMenuItemClick(event) {
+    const item = event.currentTarget;
+    // Якщо елемент вже вибраний, скидаємо вибір
+    if (item.classList.contains('selected')) {
+        item.classList.remove('selected');
+    } else {
+        item.classList.add('selected');
+    }
+}
+
 // Додаємо подію на кожен елемент меню
 menuItems.forEach(item => {
-    item.addEventListener('click', function() {
-        // Якщо елемент вже вибраний, скидаємо вибір
-        if (this.classList.contains('selected')) {
-            this.classList.remove('selected');
-        } else {
-            this.classList.add('selected');
-        }
-    });
+    item.onclick =  handleMenuItemClick;
 });
 
 // Обробляємо замовлення
@@ -26,9 +30,11 @@ document.getElementById('order-btn').addEventListener('click', function() {
 
     // Виводимо повідомлення про замовлення
     if (selectedItems.length > 0) {
-        document.getElementById('order-message').textContent = 'Ви замовили:\n' + selectedItems.join(', ');
+        document.getElementById('order-message').textContent = 'Ви замовили:\n' + selectedItems.join(', ') + '\n';
+        document.getElementsByClassName('message')[0].classList.add("message-border");
     } else {
         document.getElementById('order-message').textContent = 'Виберіть хоча б один елемент меню.';
+        document.getElementsByClassName('message')[0].classList.add("message-border");
     }
 });
 

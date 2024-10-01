@@ -50,6 +50,7 @@ h1 {
     padding: 10px 20px;
     border-radius: 5px;
     cursor: pointer;
+    margin: 10px;
 }
 
 #order-btn:hover {
@@ -64,4 +65,12 @@ h1 {
     font-size: 1.1rem;
     color: #d63031;
     margin-top: 15px;
+}
+
+.message-border{
+    border: 2px solid #0985e33e;
+    border-radius: 5px;
+    background-color: #0985e33e;
+    width: 300px;
+    margin: auto;
 }
