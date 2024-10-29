@@ -1,8 +1,8 @@
 {
     "manifest_version": 3,
-    "name": "Media Volume Booster",
+    "name": "Media Volume Controler",
     "version": "1.0",
-    "permissions": ["activeTab", "scripting", "tabs"],
+    "permissions": ["storage", "activeTab", "scripting", "tabs"],
     "action": {
       "default_popup": "popup.html"
     }
